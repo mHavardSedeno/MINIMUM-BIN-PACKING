@@ -2,7 +2,7 @@
 function loadMBP(fname)
     f=open(fname)
     # lecture du nbre d'objets (n) et donc du nombre de sacs
-    n = readuntil(f, ' ')
+    n = parse(Int, readuntil(f, ' '))
     # lecture des n coefficients de la fonction economique et cree le vecteur d'entiers c
     obj = parse.(Float64, split(readline(f)) )
     close(f)
@@ -12,7 +12,7 @@ end
 
 #Charger une instance depuis une saisie utilisateur
 function inputMBP()
-    n = 0
+
     print("Entrez le nombre d'objets et de sacs (n): ")
     n = parse(Int, readline())
 
