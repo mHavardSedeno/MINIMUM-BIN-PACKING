@@ -3,7 +3,16 @@
 #Augustin HERVE & Mathilde HAVARD-SEDENO
 #M1 Informatique
 
+include("parser.jl")
+include("binPacking.jl")
+
+#Choix de l'instance
+#Chargement
 fname = "C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt"
-#loadMBP(fname)
+n, obj = loadMBP(fname)
+#Saisie
 #inputMBP()
-generateMBP(2,2)
+#Aléatoire
+#generateMBP(2,2)
+
+NextFit(n, obj)
