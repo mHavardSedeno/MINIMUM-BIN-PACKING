@@ -15,4 +15,5 @@ n, obj = loadMBP(fname)
 #Aléatoire
 #generateMBP(2,2)
 
-NextFit(n, obj)
+#NextFit(n, obj)
+randomOrder(n, obj)
