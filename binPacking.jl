@@ -4,13 +4,15 @@ function binCount(
     s::Array{Float64}
     )
 
-    i = 1
-    while s[i] > 0
-        print(i)
-        i += 1
+    m = 0
+
+    for i=1:length(s)
+        if s[i] != 0.0
+            m += 1
+        end
     end
 
-    return i-1
+    return m
 end
 
 #_____________________________________________________________#
@@ -43,7 +45,20 @@ function FirstFitDecreasing(
     obj::Array{Float64}
     )
 
+    #trie des valeurs par ordre decroissat
+    objetTrie=sort!(obj,rev=true)
+    package = zeros(Float64,n)
+    i=1
 
+    for k=1:n
+        while package[i]+objetTrie[k]>1
+            i+=1
+        end
+        package[i]+=objetTrie[k]
+        i=1
+    end
+    m=binCount(package)
+    return package,m
 end
 
 
@@ -56,25 +71,29 @@ function randomOrder(
 
     #Tableau de comptage des remplissages de chaque sac
     packs = zeros(Float64, n)
-    #Liste des objets pas encore placés
-    list_obj = deepcopy(obj)
+    #Liste des indices des objets pas encore placés
+    list_obj = [1:n;]
     n_tmp = n
+    ite = 0
 
     #Tant qu'il reste des objets à placer
     while list_obj != []
+
         #On sélectionne un objet aléatoire dans la liste
-        rnd_obj = rand(1:n_tmp)
+        rnd_obj = rand(list_obj)
 
         #Sélection d'un pack aléatoire, où il est possible d'ajouter l'objet courant
-        rnd_pack = rand(1:n_tmp)
-        while packs[rnd_pack] + list_obj[rnd_obj] > 1
-            rnd_pack = rand(1:n_tmp)
+        rnd_pack = rand(1:n)
+
+        while packs[rnd_pack] + obj[rnd_obj] > 1
+            rnd_pack = rand(1:n)
         end
+
         #Ajout de l'objet aléatoire au sac aléatoire
         packs[rnd_pack] += obj[rnd_obj]
+
         #L'objet placé peut être retiré de la liste
         filter!(e->e≠rnd_obj,list_obj)
-        println(list_obj)
         n_tmp -= 1
     end
 
