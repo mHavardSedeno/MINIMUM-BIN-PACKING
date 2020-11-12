@@ -16,32 +16,69 @@ end
 #_____________________________________________________________#
 #Fonction Next Fit (objets placés dans l'ordre de leur indice)
 function NextFit(
-    n::Int64,
-    obj::Array{Float64}
+    n::Int64,           # 2
+    obj::Array{Float64} #[0.8, 0.6]
     )
 
-    s = zeros(Float64, n)
+    packs = zeros(Float64, n) # = [0, 0]
     i = 1
 
     #Sélection des objets dans l'ordre des indices
     for k=1:n
-        if s[i] + obj[k] > 1
+        if packs[i] + obj[k] > 1
             i += 1
         end
-        s[i] += obj[k]
+        packs[i] += obj[k]
     end
-    m = binCount(s)
+    m = binCount(packs)
 
-    return s,m
+    return packs, m
 end
 
 
 #_____________________________________________________________#
 #Fonction First Fit Decreasing (objets placés dans l'ordre de leur indice)
-function NextFit(
+function FirstFitDecreasing(
     n::Int64,
     obj::Array{Float64}
     )
 
 
+end
+
+
+#_____________________________________________________________#
+#Fonction Random Order / Random Bin (objets placés dans l'ordre de leur indice)
+function randomOrder(
+    n::Int64,
+    obj::Array{Float64}
+    )
+
+    #Tableau de comptage des remplissages de chaque sac
+    packs = zeros(Float64, n)
+    #Liste des objets pas encore placés
+    list_obj = deepcopy(obj)
+    n_tmp = n
+
+    #Tant qu'il reste des objets à placer
+    while list_obj != []
+        #On sélectionne un objet aléatoire dans la liste
+        rnd_obj = rand(1:n_tmp)
+
+        #Sélection d'un pack aléatoire, où il est possible d'ajouter l'objet courant
+        rnd_pack = rand(1:n_tmp)
+        while packs[rnd_pack] + list_obj[rnd_obj] > 1
+            rnd_pack = rand(1:n_tmp)
+        end
+        #Ajout de l'objet aléatoire au sac aléatoire
+        packs[rnd_pack] += obj[rnd_obj]
+        #L'objet placé peut être retiré de la liste
+        filter!(e->e≠rnd_obj,list_obj)
+        println(list_obj)
+        n_tmp -= 1
+    end
+
+    m = binCount(packs)
+
+    return packs, m
 end
