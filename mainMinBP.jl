@@ -16,4 +16,5 @@ n, obj = loadMBP(fname)
 #generateMBP(2,2)
 
 #NextFit(n, obj)
-randomOrder(n, obj)
+#randomOrder(n, obj)
+FirstFitDecreasing(n, obj)
