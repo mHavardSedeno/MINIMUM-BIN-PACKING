@@ -1,8 +1,6 @@
 #________________________________________________________________________#
 #Fonction de comptage du nombre de bins nécessaire pour placer nos objets
-function binCount(
-    s::Array{Float64}
-    )
+function binCount(s)
 
     m = 0
 
@@ -19,7 +17,7 @@ end
 #Fonction Next Fit (objets placés dans l'ordre de leur indice)
 function NextFit(
     n::Int64,           # 2
-    obj::Array{Float64} #[0.8, 0.6]
+    obj #[0.8, 0.6]
     )
 
     packs = zeros(Float64, n) # = [0, 0]
@@ -42,7 +40,7 @@ end
 #Fonction First Fit Decreasing (objets placés dans l'ordre de leur indice)
 function FirstFitDecreasing(
     n::Int64,
-    obj::Array{Float64}
+    obj
     )
 
     #trie des valeurs par ordre decroissat
@@ -66,7 +64,7 @@ end
 #Fonction Random Order / Random Bin (objets placés dans l'ordre de leur indice)
 function randomOrder(
     n::Int64,
-    obj::Array{Float64}
+    obj
     )
 
     #Tableau de comptage des remplissages de chaque sac
@@ -100,4 +98,22 @@ function randomOrder(
     m = binCount(packs)
 
     return packs, m
+end
+
+
+#__________________________________________#
+# Fonction d'affichage
+
+function affichage()
+
+    println("Borne inférieure = ")
+
+    println("Résultat NF = ")
+    println("ratio NF =")
+
+    println("Résultat FFD =")
+    println("ratio FFD =")
+    println("Résultat RORB =")
+    println("ratio RORB =")
+
 end
