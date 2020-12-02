@@ -28,12 +28,13 @@ function inputMBP()
     end
 
     println("L'instance est composée de ", n, " objets, d'un poids de ", obj, ".")
-
+    return n, obj
 end
 
 
 #Générer p instance(s) aléatoire(s)
-function generateMBP(n, p)
+function generateMBP()
+    n = 3; p= 3
     for instance=1:p
         path = string("C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance_rnd", instance, ".txt")
         file = open(path, "w")
@@ -43,7 +44,8 @@ function generateMBP(n, p)
             obj = round(rand(),digits=1)
             obj_w = string(obj, " ")
             print(file, obj_w)
-        end
-    close(file)
-    end
-end
+        end#for
+        close(file)
+    end#for
+
+end#function
