@@ -12,24 +12,37 @@ println("\n 1- Depuis un fichier; \n 2- Au clavier; \n 3- Génération aléatoir
 println("Entrez le code du type d'instance souhaitée : ")
 type = readline()
 
-while (type != 1) && (type != 2) && (type != 3)
-    print("non")
+while (type ∉ ["1","2","3"])
+    println("Entrez un code valide (1, 2 ou 3) : ")
+    global type = readline()
 end
 
-if type == 1
+if type == "1"
+        println("Rentrez le nom du fichier :")
+        #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt
+        fname = readline()
+        global n, obj = loadMBP(fname)
 
-elseif type == 2
+elseif type == "2"
+    global n, obj = inputMBP()
 
 else
+    print("Combien d'instances souhaitez-vous créer ?")
+    nb = parse(Int, readline())
+    print("Combien d'objets voulez-vous ?")
+    n = parse(Int, readline())
+    println(nb, " instance(s) vont être générées aléatoirement.")
+    generateMBP(n, nb)
+    
+    println("Rentrez le nom du fichier :")
+    #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt
+    fname = readline()
+    global n, obj = loadMBP(fname)
+end
 
-#Chargement
-fname = "C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt"
-n, obj = loadMBP(fname)
-#Saisie
-#inputMBP()
-#Aléatoire
-#generateMBP(2,2)
 
+println("n : ", n)
+println("obj : ", obj)
 #NextFit(n, obj)
 #randomOrder(n, obj)
 FirstFitDecreasing(n, obj)
