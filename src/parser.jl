@@ -33,10 +33,10 @@ end
 
 
 #Générer p instance(s) aléatoire(s)
-function generateMBP()
-    n = 3; p= 3
+function generateMBP(n, p)
+
     for instance=1:p
-        path = string("C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance_rnd", instance, ".txt")
+        path = string("C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instances/random/instance_rnd", instance, ".txt")
         file = open(path, "w")
         n_w = string(n, " ")
         print(file, n_w)
