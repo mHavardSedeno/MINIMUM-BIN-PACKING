@@ -32,7 +32,7 @@ function NextFit(
     end
     m = binCount(packs)
 
-    return packs, m
+    return m
 end
 
 
@@ -56,7 +56,7 @@ function FirstFitDecreasing(
         i=1
     end
     m=binCount(package)
-    return package,m
+    return m
 end
 
 
@@ -97,23 +97,21 @@ function randomOrder(
 
     m = binCount(packs)
 
-    return packs, m
+    return m
 end
 
 
-#__________________________________________#
-# Fonction d'affichage
+#_______________________________#
+# Calcul de la borne inférieure #
 
-function affichage()
+function lowerb(n, obj)
 
-    println("Borne inférieure = ")
+    sum = 0
+    for i in 1:n
+        sum += obj[i]
+    end
 
-    println("Résultat NF = ")
-    println("ratio NF =")
+    lb = ceil(sum)
 
-    println("Résultat FFD =")
-    println("ratio FFD =")
-    println("Résultat RORB =")
-    println("ratio RORB =")
-
+    return lb
 end
