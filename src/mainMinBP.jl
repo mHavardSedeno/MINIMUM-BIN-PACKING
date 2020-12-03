@@ -3,8 +3,8 @@
 #Augustin HERVE & Mathilde HAVARD-SEDENO
 #M1 Informatique
 
-include("parser.jl")
-include("binPacking.jl")
+include("src/parser.jl")
+include("src/binPacking.jl")
 
 #Choix de l'instance
 println("__ CHOIX DE L'INSTANCE __")
