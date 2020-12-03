@@ -2,9 +2,11 @@
 #Projet de complexité - M. FERTIN
 #Augustin HERVE & Mathilde HAVARD-SEDENO
 #M1 Informatique
+using Statistics
 
-include("parser.jl")
-include("binPacking.jl")
+include("src/parser.jl")
+include("src/binPacking.jl")
+include("src/getfname.jl")
 
 #Choix de l'instance
 println("__ CHOIX DE L'INSTANCE __")
@@ -19,7 +21,6 @@ end
 
 if type == "1"
         println("Rentrez le nom du fichier :")
-        #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt
         fname = readline()
         global n, obj = loadMBP(fname)
 
@@ -34,23 +35,45 @@ else
     println(nb, " instance(s) vont être générées aléatoirement.")
     generateMBP(n, nb)
 
-    println("Rentrez le nom du fichier :")
-    #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt
-    fname = readline()
-    global n, obj = loadMBP(fname)
+    #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instances/instance1.txt
 end
 
-lb = lowerb(n, obj)
-println("Borne inférieure = ", lb)
+if (type ∈ ["1","2"])
+    lb = lowerb(n, obj)
+    println("Borne inférieure = ", lb)
 
-resFFD = FirstFitDecreasing(n, obj)
-println("Résultat FFD =", resFFD)
-println("ratio FFD =", resFFD/lb)
+    global resNF = NextFit(n, obj)
+    println("Résultat NF = ", resNF)
+    println("ratio NF =", resNF/lb)
 
-resNF = NextFit(n, obj)
-println("Résultat NF = ", resNF)
-println("ratio NF =", resNF/lb)
+    global resFFD = FirstFitDecreasing(n, obj)
+    println("Résultat FFD =", resFFD)
+    println("ratio FFD =", resFFD/lb)
 
-resRORB = randomOrder(n, obj)
-println("Résultat RORB =", resRORB)
-println("ratio RORB =", resRORB/lb)
+    global resRORB = randomOrder(n, obj)
+    println("Résultat RORB =", resRORB)
+    println("ratio RORB =", resRORB/lb)
+
+elseif (type == "3")
+    ratioFFD = []
+    ratioNF = []
+    ratioRORB = []
+
+    target = "C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instances/random/"
+    fnames= getfname(target)
+
+    for fname in fnames
+        n, obj = loadMBP(fname)
+        resFFD = FirstFitDecreasing(n, obj)
+        push!(ratioFFD, resFFD)
+        resNF = NextFit(n, obj)
+        push!(ratioNF, resNF)
+        resRORB = randomOrder(n, obj)
+        push!(ratioRORB, resRORB)
+    end
+
+    println("Ratio moyen FFD = ", Statistics.mean(ratioFFD))
+    println("Ratio moyen NF = ", Statistics.mean(ratioNF))
+    println("Ratio moyen RORB = ", Statistics.mean(ratioRORB))
+
+end
