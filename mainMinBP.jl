@@ -33,16 +33,24 @@ else
     n = parse(Int, readline())
     println(nb, " instance(s) vont être générées aléatoirement.")
     generateMBP(n, nb)
-    
+
     println("Rentrez le nom du fichier :")
     #C:/Users/Félix/Documents/GitHub/MINIMUM-BIN-PACKING/instance1.txt
     fname = readline()
     global n, obj = loadMBP(fname)
 end
 
+lb = lowerb(n, obj)
+println("Borne inférieure = ", lb)
 
-println("n : ", n)
-println("obj : ", obj)
-#NextFit(n, obj)
-#randomOrder(n, obj)
-FirstFitDecreasing(n, obj)
+resFFD = FirstFitDecreasing(n, obj)
+println("Résultat FFD =", resFFD)
+println("ratio FFD =", resFFD/lb)
+
+resNF = NextFit(n, obj)
+println("Résultat NF = ", resNF)
+println("ratio NF =", resNF/lb)
+
+resRORB = randomOrder(n, obj)
+println("Résultat RORB =", resRORB)
+println("ratio RORB =", resRORB/lb)
